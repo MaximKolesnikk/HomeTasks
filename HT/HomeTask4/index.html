@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rick & Morty — Персонажі</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Rick & Morty — Персонажі</h1>
+
+      <div id="characters" class="characters"></div>
+
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <button class="close-btn">×</button>
+          <img id="modal-image" src="" alt="Персонаж" />
+          <h2 id="modal-name"></h2>
+          <div class="modal-info">
+            <p><strong>Статус:</strong> <span id="modal-status"></span></p>
+            <p><strong>Вид:</strong> <span id="modal-species"></span></p>
+            <p><strong>Локація:</strong> <span id="modal-location"></span></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="loader" class="loading">Завантаження...</div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
