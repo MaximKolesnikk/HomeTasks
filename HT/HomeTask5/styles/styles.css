@@ -1,0 +1,68 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+  padding: 40px;
+  color: #333;
+}
+
+.wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h1 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+.counters {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 30px;
+}
+
+.counter {
+  background: #ecf0f1;
+  padding: 20px 30px;
+  border-radius: 10px;
+  min-width: 140px;
+}
+
+.counter h2 {
+  margin: 0 0 15px;
+  font-size: 1.3rem;
+}
+
+.counter-display {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 15px 0;
+  color: #3498db;
+}
+
+button {
+  font-size: 1.4rem;
+  padding: 10px 20px;
+  margin: 0 8px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #3498db;
+  color: white;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+button:active {
+  transform: translateY(1px);
+}
