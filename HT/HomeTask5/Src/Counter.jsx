@@ -1,14 +1,17 @@
-import { useState } from 'react';
-import React from 'react';
-export default function Counter({ title }) {
-  const [count, setCount] = useState(0);
+import { useState } from "react";
+import React from "react";
+import { CounterContext } from "../provider/CounterProvider.jsx";
+
+const Counter = () => {
+  const { count, increment, decrement } = React.useContext(CounterContext);
 
   return (
-    <div className="counter">
-      <h2>{title}</h2>
-      <div className="counter-display">{count}</div>
-      <button onClick={() => setCount(c => c + 1)}>Вгору</button>
-      <button onClick={() => setCount(c => c - 1)}>Вниз</button>
+    <div>
+      <h2>Counter </h2>
+      <p>Current count :{count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
     </div>
   );
-}
+};
+export default Counter;

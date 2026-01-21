@@ -6,13 +6,13 @@ body {
   color: #333;
 }
 
-.wrapper {
+.MainContainer {
   max-width: 600px;
   margin: 0 auto;
   background: white;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -26,25 +26,6 @@ h1 {
   justify-content: center;
   gap: 60px;
   margin-top: 30px;
-}
-
-.counter {
-  background: #ecf0f1;
-  padding: 20px 30px;
-  border-radius: 10px;
-  min-width: 140px;
-}
-
-.counter h2 {
-  margin: 0 0 15px;
-  font-size: 1.3rem;
-}
-
-.counter-display {
-  font-size: 3rem;
-  font-weight: bold;
-  margin: 15px 0;
-  color: #3498db;
 }
 
 button {
