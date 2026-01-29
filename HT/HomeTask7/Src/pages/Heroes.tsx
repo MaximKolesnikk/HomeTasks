@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRequest } from 'ahooks';
 
 import { getCharacters, getCharacterById, Character, CharactersResponse } from '../api/rickAndMortyApi';
-import HeroDetail from './HeroDetail';
+import HeroDetail from '../Components/HeroDetail';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },

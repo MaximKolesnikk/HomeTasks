@@ -5,8 +5,8 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { ThemeContext } from "../../provider/ThemeContext.jsx";
-import '../../styles/styles.css'
+import { ThemeContext } from "../provider/ThemeContext.jsx";
+import '../styles/styles.css'
 
 export default function Navigation() {
   const { mode, toggleTheme } = useContext(ThemeContext);
