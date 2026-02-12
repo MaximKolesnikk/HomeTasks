@@ -1,0 +1,38 @@
+{
+  "name": "museum",
+  "version": "1.0.0",
+  "description": "Museum Frontend Application",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.6",
+    "@mui/material": "^6.1.6",
+    "@reduxjs/toolkit": "^1.9.7",
+    "axios": "^1.7.7",
+    "formik": "^2.4.6",
+    "next": "^15.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "react-redux": "^7.2.4",
+    "socket.io-client": "^4.8.1",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.9.1",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-router-dom": "^5.1.7",
+    "typescript": "^4.2.3"
+  }
+}

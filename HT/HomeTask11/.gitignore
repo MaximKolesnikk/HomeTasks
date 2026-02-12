@@ -1,0 +1,12 @@
+# dependencies
+/node_modules
+
+# production
+/build
+
+# editor
+.vscode
+.idea
+
+# ignore package-lock.json
+package-lock.json
