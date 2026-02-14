@@ -10,38 +10,15 @@ import StripePage from './layouts/StripePage';
 import NewPost from './layouts/NewPost';
 import MyExhibits from './layouts/MyExhibits';
 import { Toaster, toast } from 'react-hot-toast';
-import io from 'socket.io-client';
-import { fetchPosts, addPost } from './store/slices/postSlice';
+import { useNotificationSocket } from './hooks/useSocket';
+
 
 const SOCKET_SERVER_URL = 'https://playground.zenberry.one/notifications';
 
 const App: React.FC = () => {
   const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
-  const dispatch = useDispatch();
+  useNotificationSocket();
 
-  useEffect(() => {
- 
-    dispatch(fetchPosts(1));
-
-    const socket = io(SOCKET_SERVER_URL);
-
-    socket.on('newPost', (newPost) => {
-      toast('Создан новый пост', {
-        style: {
-          fontSize: '18px',
-          padding: '16px',
-        },
-        position: 'top-center',
-      });
-
-    
-      dispatch(addPost(newPost));
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [dispatch]);
 
   return (
     <Router>

@@ -7,7 +7,7 @@ export const loginUser = async (credentials: { username: string; password: strin
 
     if (access_token) {
       localStorage.setItem('token', access_token);
-      console.log('Token is saved in localStorage');
+     
     } else {
       console.error('No token found in response');
     }

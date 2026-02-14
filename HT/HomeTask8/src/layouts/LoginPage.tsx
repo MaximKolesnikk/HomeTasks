@@ -13,7 +13,7 @@ const LoginPage: React.FC = () => {
       await loginUser({ username, password });
       const token = localStorage.getItem('token');
       if (token) {
-        console.log('Token found in localStorage:', token);
+     
         navigate('/');
       } else {
         console.error('Token is not saved in localStorage');

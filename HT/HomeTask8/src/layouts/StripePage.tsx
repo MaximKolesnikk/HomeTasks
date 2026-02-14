@@ -1,79 +1,81 @@
 import React, { useEffect } from 'react';
-import { Box, Pagination } from '@mui/material';
+import { Box, Pagination, CircularProgress, Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
-import { fetchPosts, setPage } from '../store/slices/postSlice';
-import { addComment, getComments } from '../api/commentActions';
+import { fetchPosts, setPage, addCommentThunk } from '../store/slices/postSlice';
 import Post from '../components/Post';
-import { io, Socket } from 'socket.io-client';
 import { toast } from 'react-hot-toast';
-
-const SOCKET_SERVER_URL = 'https://playground.zenberry.one';
 
 const StripePage: React.FC = () => {
   const dispatch = useDispatch();
+
   const posts = useSelector((state: RootState) => state.posts.posts);
   const totalPages = useSelector((state: RootState) => state.posts.totalPages);
   const currentPage = useSelector((state: RootState) => state.posts.currentPage);
-
+  const status = useSelector((state: RootState) => state.posts.status);
+  const error = useSelector((state: RootState) => state.posts.error);
 
   useEffect(() => {
     dispatch(fetchPosts(currentPage));
   }, [dispatch, currentPage]);
 
+
   useEffect(() => {
-    const socket: Socket = io(SOCKET_SERVER_URL);
-
-    socket.on('connect', () => {
-      console.log('Connected to WebSocket server');
-    });
-
-    socket.on('newPost', (newPost) => {
-      toast(`Создан новый пост`, {
-        position: 'top-center',
-        style: {
-          fontSize: '18px',
-        },
-      });
-
-      console.log("newPost event received");
-
-
-      if (currentPage === 1) {
-        dispatch(fetchPosts(1));
-      }
-    });
-
-    socket.on('disconnect', () => {
-      console.log('Disconnected from WebSocket server');
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [dispatch, currentPage]);
-
-  const handleAddComment = async (exhibitId: number, text: string) => {
-    try {
-      const newComment = await addComment(String(exhibitId), text);
-      const updatedPosts = posts.map((post) =>
-        post.id === exhibitId
-          ? { ...post, comments: [...post.comments, newComment] }
-          : post
-      );
-
-      dispatch({ type: 'posts/updatePosts', payload: updatedPosts });
-    } catch (error) {
-      console.error('Failed to add comment:', error);
+    if (status === 'failed' && error) {
+      toast.error(error || 'Не удалось загрузить посты');
     }
+  }, [status, error]);
+
+  const handleAddComment = (exhibitId: number, text: string) => {
+    if (!text.trim()) {
+      toast.error('Комментарий не может быть пустым');
+      return;
+    }
+
+    dispatch(addCommentThunk({ exhibitId: String(exhibitId), text }))
+      .unwrap()
+      .then(() => {
+        toast.success('Комментарий добавлен');
+      })
+      .catch((err) => {
+        console.error('Ошибка добавления:', err);
+        toast.error(err || 'Не удалось добавить комментарий');
+      });
   };
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     dispatch(setPage(value));
   };
 
+  if (status === 'loading') {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+        <CircularProgress size={60} thickness={4} color="primary" />
+      </Box>
+    );
+  }
+
+  if (status === 'failed') {
+    return (
+      <Box sx={{ textAlign: 'center', py: 8 }}>
+        <Typography variant="h6" color="error">
+          Ошибка загрузки постов
+        </Typography>
+        <Typography color="text.secondary">
+          {error || 'Попробуйте обновить страницу'}
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <Box sx={{ padding: 3, backgroundColor: '#e0e0e0', textAlign: 'center', minHeight: '100vh' }}>
+      {posts.length === 0 && (
+        <Typography variant="h6" sx={{ my: 4 }}>
+          Пока нет постов
+        </Typography>
+      )}
+
       {posts.map((post) => (
         <Post
           key={post.id}
@@ -84,14 +86,23 @@ const StripePage: React.FC = () => {
           user={post.user}
           createdAt={post.createdAt}
           comments={post.comments || []}
-          onDelete={() => console.log(`Delete exhibit with ID: ${post.id}`)}
-          onViewComments={() => console.log(`View comments for exhibit with ID: ${post.id}`)}
-          onAddComment={(text) => handleAddComment(post.id, text)}
+          onDelete={() => console.log(`Delete ${post.id}`)}
+          onViewComments={() => console.log(`View comments ${post.id}`)}
+          
         />
       ))}
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 3 }}>
-        <Pagination count={totalPages} page={currentPage} onChange={handlePageChange} />
-      </Box>
+
+      {totalPages > 1 && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+            size="large"
+          />
+        </Box>
+      )}
     </Box>
   );
 };

@@ -21,7 +21,7 @@ const RegisterForm: React.FC = () => {
   const initialValues: RegisterFormValues = { username: '', password: '' };
 
   const handleSubmit = async (values: RegisterFormValues) => {
-    console.log('Registering user:', values);
+   
   };
 
   return (
