@@ -15,16 +15,6 @@ export function ValidateUserInput() {
         }
       }
 
-      console.log('[ВАЛИДАТОР] Знайдений body:', body);
-      console.log('[ВАЛИДАТОР] typeof body:', typeof body);
-      if (body) {
-        console.log('[ВАЛИДАТОР] Ключи:', Object.keys(body));
-        console.log('[ВАЛИДАТОР] user:', body.user, 'довжина:', body.user?.length);
-        console.log('[ВАЛИДАТОР] email:', body.email);
-      } else {
-        console.log('[ВАЛИДАТОР] body не знайдено!');
-      }
-
       if (!body || typeof body !== 'object') {
         throw new HttpError(400, 'Invalid body format');
       }
@@ -37,7 +27,7 @@ export function ValidateUserInput() {
         throw new HttpError(400, 'A valid email is required');
       }
 
-      console.log('[ВАЛИДАТОР] OK, валідація пройдена');
+      
       return originalMethod.apply(this, args);
     };
 

@@ -20,12 +20,12 @@ export class UserController {
   }
 
 @Post('/users')
-async createUser(@Body() body: any) {
+async createUser(@Body() body: User) {
   console.log('POST /users вызван. Полученное тело:', body);
 
  
-  const userName = body?.user || 'DefaultUser';
-  const email = body?.email || 'default@example.com';
+  const userName = body?.user ;
+  const email = body?.email ;
 
   const newUser = userRepository.create({
     id: Date.now().toString(),

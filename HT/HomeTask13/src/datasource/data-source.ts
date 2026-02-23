@@ -1,11 +1,11 @@
 import { DataSource } from 'typeorm';
 import { User } from '../entity/user';
-import { NewsPost } from '../entity/newPost';
+import { NewsPost } from '../entity/NewPost';
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: '127.0.0.1',
   port: 5432,
-  username: 'lesson13',
+  username: 'postgres',
   password: 'password',
   database: 'lesson13',
 
