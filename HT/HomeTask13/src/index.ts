@@ -27,6 +27,7 @@ AppDataSource.initialize()
     useExpressServer(app, {
       controllers: [UserController],
       validation: true,
+      
     });
 
     const PORT = 3000;

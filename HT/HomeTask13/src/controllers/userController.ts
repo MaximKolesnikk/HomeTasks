@@ -20,24 +20,18 @@ export class UserController {
   }
 
 @Post('/users')
-async createUser(@Body() body: User) {
-  console.log('POST /users вызван. Полученное тело:', body);
+  async createUser(
+    @Body({ validate: true }) body: User
+  ) {
+    const newUser = userRepository.create({
+      id: Date.now().toString(),
+      user: body.user.trim(),
+      email: body.email,
+    });
 
- 
-  const userName = body?.user ;
-  const email = body?.email ;
-
-  const newUser = userRepository.create({
-    id: Date.now().toString(),
-    user: userName,
-    email: email,
-  });
-
-  await userRepository.save(newUser);
-
-  console.log('Пользователь создан:', newUser);
-  return newUser;
-}
+    await userRepository.save(newUser);
+    return newUser;
+  }
   @Patch('/users/:id')
   async updateUser(@Param('id') id: string, @Body() userData: Partial<User>) {
     const user = await userRepository.findOneBy({ id });
